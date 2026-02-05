@@ -1,5 +1,6 @@
 import bookingRepository from './booking.repository.js';
 import serviceRepository from '../services/service.repository.js';
+import notificationService from '../notifications/notification.service.js';
 import { NotFoundException, BadRequestException } from '../../shared/exceptions/index.js';
 import { Booking, BookingStatus } from '@prisma/client';
 
@@ -25,7 +26,10 @@ export class BookingService {
         // Convert string date to Date object if needed, ensuring strict ISO compliance
         const bookingDate = new Date(data.bookingDate);
 
-        return bookingRepository.create({
+        // Create admin notification message
+        const adminMessage = `Hello Admin,\n\nA new booking has been received.\n\nDetails:\nUser ID: ${userId}\nService ID: ${data.serviceId}\nDate: ${bookingDate}\nTime: ${data.bookingTime}\nTotal Amount: ${totalAmount}\n\nPlease check the dashboard for more details.`;
+
+        const booking = await bookingRepository.create({
             user: { connect: { id: userId } },
             service: { connect: { id: data.serviceId } },
             package: packageId ? { connect: { id: packageId } } : undefined,
@@ -35,7 +39,19 @@ export class BookingService {
             notes: data.notes,
             totalAmount: totalAmount,
             status: 'PENDING',
+            adminNotes: adminMessage,
         });
+
+        // Send notification to admin
+        await notificationService.sendAdminNewBookingNotification({
+            userId,
+            serviceId: data.serviceId,
+            bookingDate: bookingDate,
+            bookingTime: data.bookingTime,
+            totalAmount
+        });
+
+        return booking;
     }
 
     async getAllBookings(query: any): Promise<{ bookings: Booking[]; total: number; page: number; limit: number }> {

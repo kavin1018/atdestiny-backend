@@ -19,6 +19,14 @@ export class NotificationService {
         const body = `Hi ${name},\n\nWe received your payment of ${amount}.`;
         await emailChannel.send(email, subject, body);
     }
+
+    async sendAdminNewBookingNotification(bookingDetails: any) {
+        const adminEmail = 'kavinxavier1018@gmail.com';
+        const subject = 'New Booking Received';
+        const body = `Hello Admin,\n\nA new booking has been received.\n\nDetails:\nUser ID: ${bookingDetails.userId}\nService ID: ${bookingDetails.serviceId}\nDate: ${bookingDetails.bookingDate}\nTime: ${bookingDetails.bookingTime}\nTotal Amount: ${bookingDetails.totalAmount}\n\nPlease check the dashboard for more details.`;
+        await emailChannel.send(adminEmail, subject, body);
+    }
+
 }
 
 export default new NotificationService();
