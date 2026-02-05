@@ -1,4 +1,4 @@
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
 import { config } from '../../shared/config/app.config.js';
 import { logger } from '../../shared/utils/logger.util.js';
 
