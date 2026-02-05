@@ -1,11 +1,8 @@
 {
     "compilerOptions": {
         "target": "ES2022",
-        "module": "ESNext",
-        "lib": [
-            "ES2022"
-        ],
-        "moduleResolution": "node",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "rootDir": "src",
         "outDir": "dist",
         "baseUrl": "src",
@@ -23,27 +20,16 @@
                 "./database/*"
             ]
         },
+        "lib": [
+            "ES2022"
+        ],
         "resolveJsonModule": true,
-        "allowJs": true,
-        "declaration": true,
-        "declarationMap": true,
-        "sourceMap": true,
-        "removeComments": true,
         "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
-        "strictBindCallApply": true,
-        "strictPropertyInitialization": true,
-        "noImplicitThis": true,
-        "alwaysStrict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "skipLibCheck": true
+        "types": [
+            "node"
+        ],
+        "skipLibCheck": true,
+        "strict": false
     },
     "include": [
         "src/**/*"
