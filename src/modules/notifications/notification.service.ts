@@ -1,4 +1,5 @@
 import emailChannel from './channels/email.channel.js';
+import { config } from '../../shared/config/app.config.js';
 
 
 export class NotificationService {
@@ -21,7 +22,7 @@ export class NotificationService {
     }
 
     async sendAdminNewBookingNotification(bookingDetails: any) {
-        const adminEmail = 'kavinxavier1018@gmail.com';
+        const adminEmail = config.notifications.adminEmail;
         const subject = 'New Booking Received';
         const body = `Hello Admin,\n\nA new booking has been received.\n\nDetails:\nUser ID: ${bookingDetails.userId}\nService ID: ${bookingDetails.serviceId}\nDate: ${bookingDetails.bookingDate}\nTime: ${bookingDetails.bookingTime}\nTotal Amount: ${bookingDetails.totalAmount}\n\nPlease check the dashboard for more details.`;
         await emailChannel.send(adminEmail, subject, body);

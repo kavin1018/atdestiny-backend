@@ -46,4 +46,13 @@ export const config = {
         apiKey: process.env.CLOUDINARY_API_KEY || '',
         apiSecret: process.env.CLOUDINARY_API_SECRET || '',
     },
+    notifications: {
+        adminEmail: process.env.ADMIN_EMAIL || 'atdestinyofficial@gmail.com',
+    },
+    email: {
+        host: process.env.SMTP_HOST || 'smtp.gmail.com',
+        port: parseInt(process.env.SMTP_PORT || '587', 10),
+        user: process.env.SMTP_USER || '',
+        pass: process.env.SMTP_PASS || '',
+    }
 } as const;
